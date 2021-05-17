@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-sm  bg-dark navbar-dark">
+  <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
+    <a class="navbar-brand" href="{{url_for('intro')}}"> <img src="{{url_for('static', filename='logo.jpg')}}" alt="Logo" style="width:40px;"> </a>
+    <ul class="navbar-nav mr-auto">
+      
+      <li class="nav-item active">
+        <a class="nav-link" href="{{url_for('intro')}}">main page  {{current_user.username}}<span class="sr-only"></span></a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link"  href="{{url_for('history')}}">history</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('rules')}}"> rules</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link"  href="{{url_for('game')}}">play </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  href="{{url_for('queeze')}}"> test yourself</a>
+      </li>
+      {%if current_user.is_authenticated%}
+
+      <li class="nav-item">
+        <a class="nav-link"  href="{{url_for('profile')}}">profile</a>
+      </li>
+      {%if current_user.username=='admin'%}
+      <li class="nav-item">
+        <a class="nav-link"  href="{{url_for('setting')}}">settings</a>
+      </li>      
+      {%endif%}
+      <li class="nav-item">
+        <a class="nav-link"  href="{{url_for('logout')}}"> exit the system</a>
+      </li>
+      {%else%}
+            <li class="nav-item">
+        <a class="nav-link"  href="{{url_for('login')}}"> enter the system</a>
+      </li>
+      {%endif%}
+    </ul>
+   <!-- </div> -->
+</nav>
+<div>
+<p></p>
+</div>
