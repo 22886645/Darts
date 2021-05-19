@@ -1,0 +1,23 @@
+commit bc5e6acce830c7873e08ea988aef2fca98b8ea25
+Author: 21817202 <84193320+21817202@users.noreply.github.com>
+Date:   Mon May 17 17:57:02 2021 +0800
+
+    Navigation Bar Implemented
+
+commit 09fe1b90f4a3d0ffb3ceb1bb16b02bc902186ab6
+Author: 21817202 <84193320+21817202@users.noreply.github.com>
+Date:   Mon May 17 17:55:44 2021 +0800
+
+    Rename flash.html to templates/flash.html
+
+commit 90f4b797058aebb8b7665547a5498ea491d32866
+Author: 21817202 <84193320+21817202@users.noreply.github.com>
+Date:   Mon May 17 17:50:47 2021 +0800
+
+    Rename base.html to templates/base.html
+
+commit 45eccd5486b30742228aa35de41bc292bee0bd7c
+Author: 22886645 <84173333+22886645@users.noreply.github.com>
+Date:   Mon May 17 17:38:57 2021 +0800
+
+    base.html created
