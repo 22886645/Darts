@@ -1,0 +1,369 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<br><br>
+<div class="card"  >
+	<div class="card-body" >
+		<h1> The Game </h1>
+		Every game is made up of 3 dart throws
+		<br>
+		To aim, use the mouse.
+	</div>
+</div>	
+<br>
+<div class="row">
+  <div class="col"><p id="scoreboard0"></p></div>
+  <div class="col"><p id="scoreboard1"></p></div>
+  <div class="col"><p id="scoreboard2"></p></div>
+</div>
+<div class="card"  >
+	<p  id="dim"></p>
+	<p id="clk"></p>
+	<div  class="card-body" >
+		<a href="#dartgame">
+		<img  id="img" class=" mx-auto d-block img-fluid"  alt="dart" style="width: 300px; height: 300px; border: solid 1px black;"  src="{{url_for('static', filename='table.png')}}">	</a>
+		<!-- <img id="dart" class=" mx-auto d-block img-fluid" usemap="#image-map" style="position:absolute; width: 30px; height: 30px;"  src="{{url_for('static', filename='dart1.png')}}">	</a> -->
+	</div>
+	<div>
+		<p id="scoreboard"></p>
+	</div>
+</div>
+
+<script >
+	var times=0;
+var sumscore=0;	
+	$(document).ready(function() {
+    $("img").on("click", function(e) {
+    var offset_t = $(this).offset().top - $(window).scrollTop();
+    var offset_l = $(this).offset().left - $(window).scrollLeft();
+
+       w =   $(this).prop("width");        // Width  (Rendered)
+   h =  $(this).prop("height");        // Height (Rendered)
+      nw =    $(this).prop("naturalWidth") ;  // Width  (Natural)
+  nh =  $(this).prop("naturalHeight") ; // Height (Natural)
+    var left = Math.round( (e.clientX - offset_l) );
+    var top = Math.round( (e.clientY - offset_t) );
+        x = Math.round((left*nw)/w);
+    y = Math.round((top*nh)/h);
+
+    // document.getElementById('dart').style.left=offset_t+x + "px";
+    // document.getElementById('dart').style.top=offset_l+y + "px";
+//    $('#img_coordinate').html("Left: " + left + " Top: " + top + "nw: "+nw+" nh: "+nh +"x: "+x+" y: "+y);
+   
+	// if(y<150 || y>1135 || x<150 || x>1125)
+	// 	alert("baghali");
+	var distance = Math.round(Math.sqrt(Math.pow((642-x),2) +Math.pow((642-y),2)  ));
+	var angle = Math.atan2(y-642, x-642) * 180 / Math.PI;
+	// alert("click x: "+x+" y: "+y);
+	// alert("oghlid:" );
+	
+	// alert(distance);
+	var score = 0;
+	if(distance>540)
+		score = 0;
+	else
+		switch (true) {
+			 case (-8   <= angle &&  angle < 8   ):
+			 	if(distance<35)
+			 		score = 10;
+			 	else if(35<distance&&distance<260)
+			 		score = 6; 
+			 	else if(260<distance&&distance<300)
+			 		score = 12; 
+			 	else if(300<distance&&distance<450)
+			 		score = 6;
+			 	else if(450<distance&&distance<480)
+			 		score = 18;
+			 	break;
+			 case (-26  <= angle &&  angle < -8  ):
+			 	if(distance<35)
+			 		score = 10;
+			 	else if(35<distance&&distance<260)
+			 		score = 13; 
+			 	else if(260<distance&&distance<300)
+			 		score = 26; 
+			 	else if(300<distance&&distance<450)
+			 		score = 13;
+			 	else if(450<distance&&distance<480)
+			 		score = 39; 
+			 	break;
+			 case (-44  <= angle &&  angle < -26 ):
+			 	if(distance<35)
+			 		score = 10;
+			 	else if(35<distance&&distance<260)
+			 		score = 4; 
+			 	else if(260<distance&&distance<300)
+			 		score = 8; 
+			 	else if(300<distance&&distance<450)
+			 		score = 4;
+			 	else if(450<distance&&distance<480)
+			 		score = 12; 
+			 	break;
+			 case (-62  <= angle &&  angle < -44 ):
+			 	if(distance<35)
+			 		score = 10;
+			 	else if(35<distance&&distance<260)
+			 		score = 18; 
+			 	else if(260<distance&&distance<300)
+			 		score = 36; 
+			 	else if(300<distance&&distance<450)
+			 		score = 18;
+			 	else if(450<distance&&distance<480)
+			 		score = 54; 
+			 	break;
+			 case (-80  <= angle &&  angle < -62 ):
+			 	if(distance<35)
+			 		score = 10;
+			 	else if(35<distance&&distance<260)
+			 		score = 1; 
+			 	else if(260<distance&&distance<300)
+			 		score = 2; 
+			 	else if(300<distance&&distance<450)
+			 		score = 1;
+			 	else if(450<distance&&distance<480)
+			 		score = 3; 
+			 	break;
+			 case (-96  <= angle &&  angle < -80 ):
+			 	if(distance<35){
+			 		score = 10;
+			 	}
+			 	if(35<distance&&distance<260){
+			 		score = 20; 
+			 	}
+			 	if(260<distance&&distance<300){
+			 		score = 40; 
+			 	}
+			 	if(300<distance&&distance<450){
+			 		score = 20;
+			 	}
+			 	if(450<distance&&distance<480){
+			 		score = 60; 
+			 	}
+			 	break;
+			 case (-116 <= angle &&  angle < -96 ):
+			 	if(distance<35)
+			 		score = 10;
+			 	else if(35<distance&&distance<260)
+			 		score = 5; 
+			 	else if(260<distance&&distance<300)
+			 		score = 10; 
+			 	else if(300<distance&&distance<450)
+			 		score = 5;
+			 	else if(450<distance&&distance<480)
+			 		score = 15; 
+			 	break;
+			 case (-134 <= angle &&  angle < -116):
+			 	if(distance<35)
+			 		score = 10;
+			 	else if(35<distance&&distance<260)
+			 		score = 12; 
+			 	else if(260<distance&&distance<300)
+			 		score = 24; 
+			 	else if(300<distance&&distance<450)
+			 		score = 12;
+			 	else if(450<distance&&distance<480)
+			 		score = 36; 
+			 	break;
+			 case (-152 <= angle &&  angle < -134):
+			 	if(distance<35)
+			 		score = 10;
+			 	else if(35<distance&&distance<260)
+			 		score = 9; 
+			 	else if(260<distance&&distance<300)
+			 		score = 18; 
+			 	else if(300<distance&&distance<450)
+			 		score = 9;
+			 	else if(450<distance&&distance<480)
+			 		score = 27; 
+			 	break;
+			 case (-170 <= angle &&  angle < -152):
+			 	if(distance<35)
+			 		score = 10;
+			 	else if(35<distance&&distance<260)
+			 		score = 14; 
+			 	else if(260<distance&&distance<300)
+			 		score = 28; 
+			 	else if(300<distance&&distance<450)
+			 		score = 14;
+			 	else if(450<distance&&distance<480)
+			 		score = 42; 
+			 	break;
+
+			 case (8   <= angle &&  angle < 26   ):
+			 	if(distance<35)
+			 		score = 10;
+			 	else if(35<distance&&distance<260)
+			 		score = 10; 
+			 	else if(260<distance&&distance<300)
+			 		score = 20; 
+			 	else if(300<distance&&distance<450)
+			 		score = 10;
+			 	else if(450<distance&&distance<480)
+			 		score = 30;			 
+			 	break;
+			 case (26   <= angle &&  angle < 44   ):
+			 	if(distance<35)
+			 		score = 10;
+			 	else if(35<distance&&distance<260)
+			 		score = 15; 
+			 	else if(260<distance&&distance<300)
+			 		score = 30; 
+			 	else if(300<distance&&distance<450)
+			 		score = 15;
+			 	else if(450<distance&&distance<480)
+			 		score = 45;			 
+			 	break;
+			 case (44   <= angle &&  angle < 62  ):
+			 	if(distance<35)
+			 		score = 10;
+			 	else if(35<distance&&distance<260)
+			 		score = 2; 
+			 	else if(260<distance&&distance<300)
+			 		score = 4; 
+			 	else if(300<distance&&distance<450)
+			 		score = 2;
+			 	else if(450<distance&&distance<480)
+			 		score = 6;			 
+			 	break;
+			 case (62   <= angle &&  angle < 80  ):
+			 	if(distance<35)
+			 		score = 10;
+			 	else if(35<distance&&distance<260)
+			 		score = 17; 
+			 	else if(260<distance&&distance<300)
+			 		score = 34; 
+			 	else if(300<distance&&distance<450)
+			 		score = 17;
+			 	else if(450<distance&&distance<480)
+			 		score = 51;			 
+			 	break;
+			 case (80   <= angle &&  angle < 96  ):
+			 	if(distance<35)
+			 		score = 10;
+			 	else if(35<distance&&distance<260)
+			 		score = 3; 
+			 	else if(260<distance&&distance<300)
+			 		score = 6; 
+			 	else if(300<distance&&distance<450)
+			 		score = 3;
+			 	else if(450<distance&&distance<480)
+			 		score = 9;			 
+			 	break;
+			 case (96   <= angle &&  angle < 116  ):
+			 	if(distance<35)
+			 		score = 10;
+			 	else if(35<distance&&distance<260)
+			 		score = 19; 
+			 	else if(260<distance&&distance<300)
+			 		score = 38; 
+			 	else if(300<distance&&distance<450)
+			 		score = 19;
+			 	else if(450<distance&&distance<480)
+			 		score = 57;			 
+			 	break;
+			 case (116   <= angle &&  angle < 134  ):
+			 	if(distance<35)
+			 		score = 10;
+			 	else if(35<distance&&distance<260)
+			 		score = 7; 
+			 	else if(260<distance&&distance<300)
+			 		score = 14; 
+			 	else if(300<distance&&distance<450)
+			 		score = 7;
+			 	else if(450<distance&&distance<480)
+			 		score = 21;			 
+			 	break;
+			 case (134  <= angle &&  angle < 152   ):
+			 	if(distance<35)
+			 		score = 10;
+			 	else if(35<distance&&distance<260)
+			 		score = 16; 
+			 	else if(260<distance&&distance<300)
+			 		score = 32; 
+			 	else if(300<distance&&distance<450)
+			 		score = 16;
+			 	else if(450<distance&&distance<480)
+			 		score = 48;			 
+			 	break;
+			 case (152  <= angle &&  angle < 170   ):
+			 	if(distance<35)
+			 		score = 10;
+			 	else if(35<distance&&distance<260)
+			 		score = 8; 
+			 	else if(260<distance&&distance<300)
+			 		score = 16; 
+			 	else if(300<distance&&distance<450)
+			 		score = 8;
+			 	else if(450<distance&&distance<480)
+			 		score = 24;			 
+			 	break;
+			 case (170  <= angle ||  angle < -170 ):
+			 	if(distance<35)
+			 		score = 10;
+			 	else if(35<distance&&distance<260)
+			 		score = 11; 
+			 	else if(260<distance&&distance<300)
+			 		score = 22; 
+			 	else if(300<distance&&distance<450)
+			 		score = 11;
+			 	else if(450<distance&&distance<480)
+			 		score = 33;
+			 	break
+		}
+
+
+
+
+	sumscore = score+sumscore;
+	times = times + 1;
+	document.getElementById("scoreboard0").innerHTML = "Number of throws: "+"<br>"+times;
+	document.getElementById("scoreboard1").innerHTML = "This throw's score: "+"<br>"+score;
+	document.getElementById("scoreboard2").innerHTML = "Total score: "+"<br>"+sumscore;
+
+
+
+
+	// $.post("{{url_for('savescore')}}", score, function(){
+	// });
+	if(times==3){
+		$.post( "{{url_for('savegame')}}", {
+		javascript_data: sumscore 
+		});
+		alert("Your score at this stage:"  + sumscore)
+		times = 0;
+		sumscore = 0;
+
+
+	}
+
+
+	// fetch('/savescore', {
+	//   method: 'POST',
+	//   headers: {
+	//     'Content-Type': 'application/json',
+	//   },
+	//   body: JSON.stringify({ip: score}),
+	// });
+
+
+
+
+
+
+
+
+
+
+
+	// alert ("ss:"+sumscore+"s:"+score+"T:"+times)
+    });
+});
+</script>
+
+{% endblock %}
