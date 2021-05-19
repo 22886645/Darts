@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+dart game
+{% endblock %}
+
+
+{% block content %}
+<h1>Hello dear user ,</h1>
+ <div class="card">
+ <ul>
+ {% for user in users %}
+ <div class="cardbody"> <li><small>{{user.email}}</small>  - 
+ 						<small><a href="{{url_for('detail',user_id=user.id)}}">{{user.username}} </a></small></li></div>
+ {% endfor %}
+</ul>
+
+
+
+{% endblock %}

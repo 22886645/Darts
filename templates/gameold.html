@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+<br><br><br>
+<div class="card"  >
+<p id="dim"></p>
+<p id="clk"></p>
+  <div class="card-body" >
+  	<img id="myImage" class=" mx-auto d-block img-fluid" usemap="#image-map" style="width: 300px;"  src="{{url_for('static', filename='sim300.jpg')}}">
+	  <map name="image-map">
+	    <area onclick="myFunction(10,this)" target="" alt="10" title="10" href="" coords="150,146,3" shape="circle">
+	    <area onclick="myFunction(9,this)" target="" alt="9" title="9" href="" coords="152,146,15" shape="circle">
+	    <area onclick="myFunction(8,this)" target="" alt="8" title="8" href="" coords="152,146,30" shape="circle">
+	    <area onclick="myFunction(7,this)" target="" alt="7" title="7" href="" coords="152,146,45" shape="circle">
+	    <area onclick="myFunction(6,this)" target="" alt="6" title="6" href="" coords="152,146,60" shape="circle">
+	    <area onclick="myFunction(5,this)" target="" alt="5" title="5" href="" coords="152,146,75" shape="circle">
+	    <area onclick="myFunction(4,this)" target="" alt="4" title="4" href="" coords="152,146,90" shape="circle">
+	    <area onclick="myFunction(3,this)" target="" alt="3" title="3" href="" coords="152,152,113" shape="circle">
+	    <area onclick="myFunction(2,this)" target="" alt="2" title="2" href="" coords="152,152,125" shape="circle">
+	    <area onclick="myFunction(1,this)" target="" alt="1" title="1" href="" coords="152,146,145" shape="circle">
+	</map>
+  </div>
+  <div>
+<img id="dart1" class=" mx-auto d-block img-fluid" style="width: 60px;" src="{{url_for('static', filename='dart1.png')}}">
+<img id="dart2" class=" mx-auto d-block img-fluid" style="width: 60px;" src="{{url_for('static', filename='dart1.png')}}">
+<img id="dart3" class=" mx-auto d-block img-fluid" style="width: 60px;" src="{{url_for('static', filename='dart1.png')}}">
+
+  </div>
+
+</div>
+
+
+
+<script>
+	document.getElementById("dim").innerHTML = "df";
+
+// var th = 0;
+// container.addEventListener("myImage", getClickPosition, false);
+// function showCoords(event) {
+// 	var x = event.clientX;
+// 	var y = event.clientY;
+// 	var coords = "X coords: " + x + ", Y coords: " + y;
+// 	document.getElementById("dim").innerHTML = coords;
+// }onclick="showCoords(event);"
+function myFunction(i , event) {
+	alert(i);
+    e.stopPropagation();
+    return false;
+}
+	// var x = event.clientX;
+	// var y = event.clientY;
+	// var coords = "X coords: " + x + ", Y coords: " + y;
+	// document.getElementById("dim").innerHTML = "gg";
+	// document.getElementById("dart1").style.position = "absolute";
+	// document.getElementById("dart1").html( "left: " + x + ", top: " + y );
+</script>
+{% endblock %}

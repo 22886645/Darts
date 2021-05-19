@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Familiarity with Dart 
+{% endblock %}
+{% block head %}
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block content %}
+
+<br><br><br>
+<div class="card"  >
+<p id="dim">ddf</p>
+<p id="clk">dfd</p>
+  <div class="card-body" >
+  	<img id="myImage" class=" mx-auto d-block img-fluid" style="width: 400px;" onclick="CC(this);" src="{{url_for('static', filename='table.png')}}">
+  </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+function CC(evt){
+    var jThis               = $('myImage');;
+	alert("00")
+  
+    var offsetFromParent    = jThis.position ();
+  
+	alert("01: "+offsetFromParent)
+    var topThickness        = (jThis.outerHeight(true) - jThis.height() ) / 2;
+  
+	alert("03: "+topThickness)
+    var leftThickness       = (jThis.outerWidth (true) - jThis.width () ) / 2;
+	alert("04 "+leftThickness)
+
+    //--- (x,y) coordinates of the mouse click relative to the image.
+
+    var x                   = evt.pageX - offsetFromParent.left - leftThickness;
+	alert("05")
+    var y                   = evt.pageY - offsetFromParent.top  - topThickness;
+
+    // ReportDims ();
+    // $('#rez').append ('<p>User clicked at: ' + x + ', ' + y + ' (x,y).</p>')
+    document.getElementById("clk").innerHTML = '<p>User clicked at: ' + x + ', ' + y + ' (x,y).</p>';
+    alert(x);
+	alert("02")
+
+}
+function ReportDims () {
+    w   = $("#myImage").width  ();
+    h   = $("#myImage").height ();
+    $('#rez').text ('The image is ' + w + ' by ' + h + ' (w by h).');
+    document.getElementById("dim").innerHTML = 'The image dim is ' + w + ' by ' + h + ' (w by h).';
+
+}
+
+ReportDims ();
+	
+</script>
+{% endblock %}
