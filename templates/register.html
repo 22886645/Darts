@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Registeration
+{% endblock %}
+
+
+{% block content %}
+{%include 'errors.html' %}
+<form method="POST" action="">
+	{{form.csrt_token }}
+	{{form.username.label(class='form-control-label')}} {{form.username(class='form-control')}}
+	{{form.email.label(class='form-control-label')}} {{form.email(class='form-control')}}
+	{{form.password.label(class='form-control-label')}} {{form.password(class='form-control')}}
+	{{form.confirm_passwod.label(class='form-control-label')}} {{form.confirm_passwod(class='form-control')}}
+	<!-- {{form.submit(class='btn btn-info')}} -->
+	<input type="submit" class="btn , btn-info" value="go">
+<!-- <input type="submit" name="Login" value="go" class="btn , btn-info"> -->
+
+</form>
+
+{% endblock %}

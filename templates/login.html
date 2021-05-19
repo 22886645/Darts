@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Registeration
+{% endblock %}
+
+
+{% block content %}
+{%include 'errorslogin.html' %}
+
+<form  method="POST" action="">
+{{form.csrt_token }}
+{{form.email.label(class='form-control-label')}} {{form.email(class='form-control')}}
+{{form.password.label(class='form-control-label')}} {{form.password(class='form-control')}}
+{{form.remember.label()}} {{form.remember()}}
+<!-- {{form.password.label(class='form-control-label')}} {{form.password(class='form-control')}} -->
+<!-- <input type="login" name="Login" value="go" class="btn , btn-info"> -->
+<br>
+	<input type="submit" class="btn , btn-info" value="go">
+
+</form>
+<br>
+<br>
+<br>
+
+<div class="card">
+  <div class="card-body">
+  	Have not registered yet?
+  	<a class="btn btn-warning nav-link" role="button"   href="{{url_for('register')}}">
+  		Registeration
+  	</a>
+  </div>
+</div>
+
+{% endblock %}
