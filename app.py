@@ -21,6 +21,17 @@ def intro():
 def history():
     return render_template('history.html')
 
+# game page
+@app.route('/game')
+@login_required  #log in is required to be able to see the viewing page
+def game():
+    return render_template('game.html')  
+
+@app.route('/queeze')
+@login_required
+def queeze():
+    return render_template('queeze.html')
+
 # registering the user
 @app.route('/register', methods=('GET', 'POST'))
 def register():
