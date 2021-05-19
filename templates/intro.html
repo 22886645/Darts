@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+i
+Introduction to Dart
+{% endblock %}
+
+
+{% block content %}
+<br><br><br>
+<div class="card">
+
+  <div class="card-body"> The sport of darts should be considered as one of the branches of sport and even military training, which is considered as an art: the art of throwing darts.
+<br>
+The aim of this website is to introduce you to the game of dart
+  </div>
+<div class="card-body">
+<img src="{{url_for('static', filename='dart_int.jpg')}}"  class="rounded mx-auto d-block img-fluid"   alt="Cinque Terre">
+</div>
+</div>
+
+<br>
+<div class="card">
+	<div class="card-body">
+    Although not much is known about how darts were invented, almost everyone agrees that the game has been around for a long time. The game has changed a lot over the years, from a mere scoring game to a game that requires not only a high level of focus, but also strong math to succeed. Currently, this game is played in different models and the rules of darts are different depending on the type.
+<br>
+To read about Dart's history click on the link below
+</div>
+
+<a  class="btn btn-warning nav-link" role="button"  href="{{url_for('history')}}"> History of Dart
+</a>
+
+
+</div>
+<br>
+<br>
+
+
+{% endblock %}
