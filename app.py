@@ -85,6 +85,7 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
+
 # ----------------------- routes
 # main page
 @app.route('/')
@@ -96,6 +97,100 @@ def intro():
 def history():
     return render_template('history.html')
 
+
+# getting data from js and storing them
+@app.route("/savegame", methods=('GET', 'POST'))
+def savegame():
+    data = request.get_json()
+    result = ''
+    jsdata = request.form['javascript_data']
+    g1 = Game(score=jsdata,player=current_user)
+    db.session.add(g1)
+    db.session.commit()
+    return jsdata
+
+# getting data from js and storing them
+@app.route("/savequize", methods=('GET', 'POST'))
+def savequize():
+    data = request.get_json()
+    result = ''
+    jsdata = request.form['javascript_data']
+    q1 = Queeze(score=jsdata,player=current_user)
+    db.session.add(q1)
+    db.session.commit()
+    return jsdata
+
+#  not using this model
+@app.route("/savescore", methods=('GET', 'POST'))
+def savescore():
+    # data = request.get_json()
+    # read json + reply
+    data = request.get_json()
+    result = ''
+    # for item in data:
+    # # loop over every row
+        # result += str(item['make']) + '\n'
+    jsdata = request.form['javascript_data']
+    g1 = Game(score=jsdata,player=current_user)
+    db.session.add(g1)
+    db.session.commit()
+    return jsdata
+
+
+    # # if request.method=="POST":
+        # jsdata = request.form['javascript_data']
+    #   # return jsdata
+    #   # return redirect('/success')
+    #   # us = User(username=form.username.data,email=form.email.data,password=hashedpass)
+    #   # db.session.add(us)
+    #   # db.session.commit()
+    #   flash("score delivered")
+    # return redirect(url_for('game'))
+
+@app.route('/setting')
+@login_required
+def setting():
+    us = User.query.all();
+
+    return render_template('setting.html',users=us)    
+
+
+
+@app.route('/deleteuser/<user_id>')
+@login_required
+def deleteuser(user_id):
+    User.query.filter(User.id == user_id).delete()
+    db.session.commit() 
+    return redirect(url_for('setting'))
+
+
+@app.route('/profile')
+@login_required
+def profile():
+    # games = Game.query.filter_by(id=current_user.id)
+    gameses = current_user.games
+    quizess = current_user.queezes
+    minn = 1000;
+    maxx = 0;
+    total = 0;
+    for game in gameses:
+        if(game.score<minn):
+            minn = game.score
+        if(game.score>maxx):
+            maxx = game.score           
+        total = total +1            
+    return render_template('profile.html',gamess=gameses,quizes=quizess,maxx = maxx, minn = minn , total=total)    
+
+# rules page
+@app.route('/rules')
+def rules():
+    return render_template('rules.html')  
+
+# gallery page
+@app.route('/gallery')
+def gallery():
+    return render_template('gallery.html')  
+
 # game page
 @app.route('/game')
 @login_required  #log in is required to be able to see the viewing page
@@ -105,7 +200,33 @@ def game():
 @app.route('/queeze')
 @login_required
 def queeze():
-    return render_template('queeze.html')
+    return render_template('queeze.html')  
+
+
+@app.route('/page1')
+def hello_world():
+    Users = User.query.all()
+    return render_template('page1.html',users=Users)
+
+
+@app.route('/user/<user_id>', methods=('GET', 'POST'))
+def detail(user_id):
+    # return "dfgf"
+    user = User.query.get(user_id)
+    form = updateprofileForm()  
+    if request.method=="POST":
+        # return user
+        user.username = form.username.data
+        user.email = form.email.data
+        user.password =  bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        db.session.commit()
+        flash("update successfully")
+        return redirect(url_for('setting'))
+    if request.method=="GET":   
+        form.username.data = user.username
+        form.email.data = user.email
+        form.password.data = user.password
+        return render_template('user.html' , user = user , form=form)
 
 # registering the user
 @app.route('/register', methods=('GET', 'POST'))
@@ -156,7 +277,7 @@ def login():
         return render_template('login.html' , form=form)
 
 
-    
+
+
 if __name__ == '__main__':
     app.run(debug=True)
-
