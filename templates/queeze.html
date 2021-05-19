@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Registeration
+{% endblock %}
+
+{% block head %} 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+{% endblock %}
+{% block content %}
+
+<div class="card">
+  <div class="card-body">
+Test here
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <section>
+    <div id="results"></div>
+    <form name="quizForm" onsubmit="return submitAnswers()">
+      <h3>1- How many balls are in a dart game?</h3>
+      <input type="radio" name="q1" value="a" id="q1a"> 0 <br>
+      <input type="radio" name="q1" value="b" id="q1b"> 1 <br>
+      <input type="radio" name="q1" value="c" id="q1c"> 2 <br>
+      <input type="radio" name="q1" value="d" id="q1d"> 3 <br>
+
+      <br><br>
+      <h3>2- In the game of Dart what is maximum possible score for a single throw?</h3>
+      <input type="radio" name="q2" value="a" id="q2a">100<br>
+      <input type="radio" name="q2" value="b" id="q2b">80<br>
+      <input type="radio" name="q2" value="c" id="q2c">60<br>
+      <input type="radio" name="q2" value="d" id="q2d">40<br>      
+      
+      <br><br>
+      <h3>3- Are you a fan of the game?</h3>
+      <input type="radio" name="q3" value="a" id="q3a">No<br>
+      <input type="radio" name="q3" value="b" id="q3b">Yes<br>  
+      
+      <br><br>
+      <input type="submit" value="Analyzing responses">
+    </form>
+
+</section>
+
+
+
+
+<script >
+	
+function submitAnswers() {
+  var total = 3;
+  var score = 0;
+  
+  //Get user input
+  var q1 = document.forms['quizForm']['q1'].value;
+  var q2 = document.forms['quizForm']['q2'].value;
+  var q3 = document.forms['quizForm']['q3'].value;
+  
+  // Validation  
+  for(var i = 1; i <= total; i++) {
+    if(eval('q' + i) === null || eval('q' + i) == '' ) {
+      alert('You missed question ' + i);
+      return false;
+    }
+  }
+  
+  // Set correct answers
+  var answers = ["a","c","b"];
+  
+  for(var i = 1; i <= total; i++) {
+    // Check answers
+    if (eval('q' + i) == answers[i - 1]) {
+      score++;
+    }
+  }
+
+  // Display results
+  var results = document.getElementById('results');
+  results.innerHTML = '<h3>You managed to score <span>' + score + '</span> from a total of <span>' + total + '</span> good job </h3>';
+  //alert('You scored ' + score + ' out of ' + total);
+  
+$.post( "{{url_for('savequize')}}", {
+javascript_data: score 
+});
+event.preventDefault();
+
+
+
+
+  // return false;
+}
+
+
+</script>
+
+
+
+
+
+
+
+
+{% endblock %}
